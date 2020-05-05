@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <!-- load fonts -->
-  
+
   <!-- load my css -->
   <link href="css/normalize.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -24,15 +24,35 @@
 
   </header>
 
-  <!-- main -->
-  <main class="">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6" id="BookForm">
 
-  </main>
+        <h6>Title</h6>
+        <input type="text" id="BookName">
+        <h6>Author</h6>
+        <input type="text" id="BookAuthor">
+        <h6>Number of Pages</h6>
+        <input type="number" id="BookPages">
+        <h6>Editorial</h6>
+        <input type="text" id="BookEditorial">
+        <h6>Have you read this book?</h6>
+        <input type="checkbox" id="BookRead">
+        <h5>Save you book</h5>
+        <button class="btn btn-primary" type="button" id="BookButton">Add to Library</button>
+      </div>
+      <div class="col-lg-6" id="BookLibrary">
+        <ul id="BookList">
+          
+        </ul>
+      </div>
+    </div>
+  </div>
 
 
   <!-- footer -->
   <footer class="">
-    
+
   </footer>
 
   <!-- load js -->
