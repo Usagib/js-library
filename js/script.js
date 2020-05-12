@@ -89,11 +89,7 @@ function render(books){
       //};
       //removeCol.appendChild(removeButton);
   }
-//function testAdding(){
-//  let testbook1 = new Book ("Book title", "book Author", 1000, "Debolsillo", true)
-//  testbook1.addBookToLibrary();
-//  return bookArray;
-//}
+
 }
 
 // save to local storage and render lib
@@ -107,4 +103,11 @@ function populateBooks() {
   myLibrary.push(new Book("book01", "author01", 11, true));
   myLibrary.push(new Book("book02", "author02", 22, false));
   myLibrary.push(new Book("book03", "author03", 33, true));
+}
+
+// populateBooks
+function populateBooks() {
+  myLibrary.push(new Book("book01", "author01", 11, "editorial01", true));
+  myLibrary.push(new Book("book02", "author02", 22, "editorial02", false));
+  myLibrary.push(new Book("book03", "author03", 33, "editorial03", true));
 }
