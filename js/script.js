@@ -56,20 +56,22 @@ function addBookToLibrary(){
       let readCol = tableRow.insertCell(5);
       let readButton = document.createElement('button');
       readButton.innerText = (book.readflag) ? "Read" : "Reading";
-      readButton.classList.add("btn", "btn-outline-info");
+      readButton.setAttribute("class", "btn btn-outline-info");
+      readCol.appendChild(readButton);
       readButton.onclick = function(){
         book.readflag = !book.readflag;
-        readButton.classList.remove("btn-outline-info");
-        readButton.classList.add("btn-outline-success");
+        readButton.innerText = (book.readflag) ? "Read" : "Reading";
+        readButton.setAttribute("class", "btn btn-outline-success");
       };
-      readCol.appendChild(readButton);
+
 
       let removeCol = tableRow.insertCell(6);
       let removeButton = document.createElement('button');
       removeButton.innerText = "remove";
       removeButton.classList.add("btn", "btn-danger");
-      readButton.onclick = function(){
-        myLibrary.splice(indexOf(book), 1);
+      removeButton.onclick = function(){
+        myLibrary.splice(myLibrary.indexOf(book), 1);
+        render();
       };
       removeCol.appendChild(removeButton);
 
