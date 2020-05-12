@@ -24,7 +24,7 @@ function addBookToLibrary(){
   myLibrary.push(newBook);
   //console.log(addStatus);
   //console.log(myLibrary);
-  render();
+  saveLocalAndRender();
 }
 
 // var row = document.getElementById("myRow");
@@ -37,6 +37,8 @@ function render(books){
   let index = 1;
 
   while (index < books.length) {
+      console.log(myLibrary);
+
       let tableRow = table.insertRow();
       let indexCol = document.createElement('th');
       indexCol.innerHTML = index;
@@ -98,4 +100,11 @@ function render(books){
 function saveLocalAndRender() {
   localStorage.setItem("myLib", JSON.stringify(myLibrary));
   render(myLibrary);
+}
+
+// populateBooks
+function populateBooks() {
+  myLibrary.push(new Book("book01", "author01", 11, true));
+  myLibrary.push(new Book("book02", "author02", 22, false));
+  myLibrary.push(new Book("book03", "author03", 33, true));
 }
