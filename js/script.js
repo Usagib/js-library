@@ -21,68 +21,79 @@ function addBookToLibrary(){
   });
   let newBook = new Book(addTitle, addAuthor, addPages, addEditorial, addStatus);
   myLibrary.push(newBook);
-  console.log(addStatus);
-  console.log(myLibrary);
+  cleanForm();
   render();
 }
 
-// var row = document.getElementById("myRow");
-// var x = row.insertCell(0);
-// x.innerHTML = "New cell";
+function render(){
+  const table = document.getElementById('lib-table');
+  table.innerHTML = "";
+  let index = 1;
+  myLibrary.forEach((book) => {
+    let tableRow = table.insertRow();
+    let indexCol = document.createElement('th');
+    indexCol.innerHTML = index;
+    index++;
+    tableRow.appendChild(indexCol);
 
-  function render(){
-    const table = document.getElementById('lib-table');
-    table.innerHTML = "";
-    let index = 1;
-    myLibrary.forEach((book) => {
-      let tableRow = table.insertRow();
-      let indexCol = document.createElement('th');
-      indexCol.innerHTML = index;
-      index++;
-      tableRow.appendChild(indexCol);
+    let titleCol = tableRow.insertCell(1);
+    titleCol.innerHTML = book.title;
 
-      let titleCol = tableRow.insertCell(1);
-      titleCol.innerHTML = book.title;
+    let authorCol = tableRow.insertCell(2);
+    authorCol.innerHTML = book.author;
 
-      let authorCol = tableRow.insertCell(2);
-      authorCol.innerHTML = book.author;
+    let pagesCol = tableRow.insertCell(3);
+    pagesCol.innerHTML = book.numpages;
 
-      let pagesCol = tableRow.insertCell(3);
-      pagesCol.innerHTML = book.numpages;
+    let editorCol = tableRow.insertCell(4);
+    editorCol.innerHTML = book.editorial;
 
-      let editorCol = tableRow.insertCell(4);
-      editorCol.innerHTML = book.editorial;
+    // status tbn
+    let readCol = tableRow.insertCell(5);
+    let readButton = document.createElement('button');
+    readBtnAction();
+    readCol.appendChild(readButton);
 
-      let readCol = tableRow.insertCell(5);
-      let readButton = document.createElement('button');
+    readButton.onclick = function(){
+      book.readflag = !book.readflag;
+      readBtnAction();
+    };
+
+    function readBtnAction() {
       readButton.innerText = (book.readflag) ? "Read" : "Reading";
-      readButton.setAttribute("class", "btn btn-outline-info");
-      readCol.appendChild(readButton);
-      readButton.onclick = function(){
-        book.readflag = !book.readflag;
-        readButton.innerText = (book.readflag) ? "Read" : "Reading";
-        readButton.setAttribute("class", "btn btn-outline-success");
+      if (book.readflag) {
+        readButton.setAttribute("class", "btn  btn-outline-success");
+      } else {
+        readButton.setAttribute("class", "btn btn-outline-info");
       };
+    }
 
+    // remove tbn
+    let removeCol = tableRow.insertCell(6);
+    let removeButton = document.createElement('button');
+    removeButton.innerText = "remove";
+    removeButton.classList.add("btn", "btn-outline-danger");
+    removeButton.onclick = function(){
+      myLibrary.splice(myLibrary.indexOf(book), 1);
+      saveLocalAndRender();
+    };
+    removeCol.appendChild(removeButton);
 
-      let removeCol = tableRow.insertCell(6);
-      let removeButton = document.createElement('button');
-      removeButton.innerText = "remove";
-      removeButton.classList.add("btn", "btn-danger");
-      removeButton.onclick = function(){
-        myLibrary.splice(myLibrary.indexOf(book), 1);
-        render();
-      };
-      removeCol.appendChild(removeButton);
+  });
 
-    });
+}
 
-  }
+function cleanForm() {
+  document.getElementById('new-title').value = "";
+  document.getElementById("new-author").value = "";
+  document.getElementById("new-pages").value = "";
+  document.getElementById('new-editorial').value = "";
+}
 
 // save to local storage and render lib
 function saveLocalAndRender() {
   localStorage.setItem("myLib", JSON.stringify(myLibrary));
-  render(myLibrary);
+  render();
 }
 
 // populateBooks
@@ -91,3 +102,12 @@ function populateBooks() {
   myLibrary.push(new Book("book02", "author02", 22, "editorial02", false));
   myLibrary.push(new Book("book03", "author03", 33, "editorial03", true));
 }
+
+// store lib in localstorage
+if (localStorage.getItem("myLib") === null) {
+  populateBooks();
+  localStorage.setItem("myLib", JSON.stringify(myLibrary));
+} else {
+  myLibrary = JSON.parse(localStorage.getItem("myLib"));
+}
+render();
