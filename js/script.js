@@ -64,7 +64,7 @@ function render(){
     function readBtnAction() {
       readButton.innerText = (book.readflag) ? "Read" : "Reading";
       if (book.readflag) {
-        readButton.setAttribute("class", "btn  btn-outline-success");
+        readButton.setAttribute("class", "btn btn-outline-success");
       } else {
         readButton.setAttribute("class", "btn btn-outline-info");
       };
