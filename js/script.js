@@ -8,8 +8,6 @@ function Book(title, author, numpages, editorial, readflag){
   this.readflag = readflag;
 }
 
-// Book.prototype.addBookToLibrary = function () {};
-
 function addBookToLibrary(){
   let addTitle = document.getElementById("new-title").value;
   let addAuthor = document.getElementById("new-author").value;
@@ -36,15 +34,19 @@ function render(){
     index++;
     tableRow.appendChild(indexCol);
 
+    // title
     let titleCol = tableRow.insertCell(1);
     titleCol.innerHTML = book.title;
 
+    // author
     let authorCol = tableRow.insertCell(2);
     authorCol.innerHTML = book.author;
 
+    // number of pages
     let pagesCol = tableRow.insertCell(3);
     pagesCol.innerHTML = book.numpages;
 
+    // editorial
     let editorCol = tableRow.insertCell(4);
     editorCol.innerHTML = book.editorial;
 
@@ -83,6 +85,7 @@ function render(){
 
 }
 
+// clean form
 function cleanForm() {
   document.getElementById('new-title').value = "";
   document.getElementById("new-author").value = "";
