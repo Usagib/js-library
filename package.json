@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Usagib/js-library.git"
   },
-  "author": "",
+  "author": "usagib",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Usagib/js-library/issues"
@@ -18,5 +18,12 @@
   "homepage": "https://github.com/Usagib/js-library#readme",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0"
+  },
+  "keywords": [
+    "library",
+    "es6"
+  ]
 }
