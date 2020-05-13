@@ -11,7 +11,7 @@ function Book(title, author, numpages, editorial, readflag) {
 // save to local storage and render lib
 function saveLocalAndRender() {
   localStorage.setItem('myLib', JSON.stringify(myLibrary));
-  render(); // eslint-disable no-use-before-define
+  render(); // eslint-disable-line no-use-before-define
 }
 
 function render() {
@@ -90,7 +90,7 @@ function addBookToLibrary() {
   const addPages = document.getElementById('new-pages').value;
   const addEditorial = document.getElementById('new-editorial').value;
   const radio = document.getElementById('read');
-  const addStatus = (radio.checked) ? true : false; // eslint-disable no-unneeded-ternary
+  const addStatus = (radio.checked) ? true : false; // eslint-disable-line no-unneeded-ternary
   const newBook = new Book(addTitle, addAuthor, addPages, addEditorial, addStatus);
   myLibrary.push(newBook);
   cleanForm();
