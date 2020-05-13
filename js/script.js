@@ -10,7 +10,7 @@ function Book(title, author, numpages, editorial, readflag) {
 
 function render() {
   const table = document.getElementById('lib-table');
-  table.innerHTML = "";
+  table.innerHTML = '';
   let index = 1;
   myLibrary.forEach((book) => {
     const tableRow = table.insertRow();
@@ -44,38 +44,38 @@ function render() {
     function readBtnAction() {
       readButton.innerText = (book.readflag) ? 'Read' : 'Reading';
       if (book.readflag) {
-        readButton.setAttribute("class", "btn btn-outline-success");
+        readButton.setAttribute('class', 'btn btn-outline-success');
       } else {
-        readButton.setAttribute("class", "btn btn-outline-info");
-      };
+        readButton.setAttribute('class', 'btn btn-outline-info');
+      }
     }
 
-    readButton.onclick = function(){
+    readButton.onclick = function () {
       book.readflag = !book.readflag;
       readBtnAction();
+      saveLocalAndRender();
     };
 
     // remove tbn
-    let removeCol = tableRow.insertCell(6);
-    let removeButton = document.createElement('button');
+    const removeCol = tableRow.insertCell(6);
+    const removeButton = document.createElement('button');
     removeButton.innerText = 'remove';
-    removeButton.classList.add("btn", "btn-outline-danger");
-    removeButton.onclick = function() {
+    removeButton.classList.add('btn', 'btn-outline-danger');
+    removeButton.onclick = function () {
       myLibrary.splice(myLibrary.indexOf(book), 1);
       saveLocalAndRender();
     };
     removeCol.appendChild(removeButton);
 
   });
-
 }
 
 // clean form
 function cleanForm() {
-  document.getElementById('new-title').value = "";
-  document.getElementById('new-author').value = "";
-  document.getElementById('new-pages').value = "";
-  document.getElementById('new-editorial').value = "";
+  document.getElementById('new-title').value = '';
+  document.getElementById('new-author').value = '';
+  document.getElementById('new-pages').value = '';
+  document.getElementById('new-editorial').value = '';
 }
 
 function addBookToLibrary() {
@@ -83,19 +83,18 @@ function addBookToLibrary() {
   const addAuthor = document.getElementById('new-author').value;
   const addPages = document.getElementById('new-pages').value;
   const addEditorial = document.getElementById('new-editorial').value;
-  const radios = document.getElementsByName('new-read');
-  radios.forEach(function (radio) {
-    if (radio.checked) addStatus = radio.value;
-  });
+  const radio = document.getElementById('read');
+  const addStatus = (radio.checked) ? true : false;
+  console.log(addStatus);
   const newBook = new Book(addTitle, addAuthor, addPages, addEditorial, addStatus);
   myLibrary.push(newBook);
   cleanForm();
-  render();
+  saveLocalAndRender();
 }
 
 // save to local storage and render lib
 function saveLocalAndRender() {
-  localStorage.setItem("myLib", JSON.stringify(myLibrary));
+  localStorage.setItem('myLib', JSON.stringify(myLibrary));
   render();
 }
 
@@ -107,10 +106,10 @@ function populateBooks() {
 }
 
 // store lib in localstorage
-if (localStorage.getItem("myLib") === null) {
+if (localStorage.getItem('myLib') === null) {
   populateBooks();
-  localStorage.setItem("myLib", JSON.stringify(myLibrary));
+  localStorage.setItem('myLib', JSON.stringify(myLibrary));
 } else {
-  myLibrary = JSON.parse(localStorage.getItem("myLib"));
+  myLibrary = JSON.parse(localStorage.getItem('myLib'));
 }
 render();
