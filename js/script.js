@@ -11,7 +11,7 @@ function Book(title, author, numpages, editorial, readflag) {
 // save to local storage and render lib
 function saveLocalAndRender() {
   localStorage.setItem('myLib', JSON.stringify(myLibrary));
-  render();
+  render(); //eslint-disable no-use-before-define
 }
 
 function render() {
@@ -19,15 +19,6 @@ function render() {
   table.innerHTML = '';
   let index = 1;
   myLibrary.forEach((book) => {
-    function readBtnAction() {
-      readButton.innerText = (book.readflag) ? 'Read' : 'Reading';
-      if (book.readflag) {
-        readButton.setAttribute('class', 'btn btn-outline-success');
-      } else {
-        readButton.setAttribute('class', 'btn btn-outline-info');
-      }
-    }
-
     const tableRow = table.insertRow();
     const indexCol = document.createElement('th');
     indexCol.innerHTML = index;
@@ -53,10 +44,20 @@ function render() {
     // status tbn
     const readCol = tableRow.insertCell(5);
     const readButton = document.createElement('button');
+
+    function readBtnAction() {
+      readButton.innerText = (book.readflag) ? 'Read' : 'Reading';
+      if (book.readflag) {
+        readButton.setAttribute('class', 'btn btn-outline-success');
+      } else {
+        readButton.setAttribute('class', 'btn btn-outline-info');
+      }
+    }
+
     readBtnAction();
     readCol.appendChild(readButton);
 
-    readButton.onclick = function () {
+    readButton.onclick = function changeRead() {
       book.readflag = !book.readflag;
       readBtnAction();
       saveLocalAndRender();
@@ -67,7 +68,7 @@ function render() {
     const removeButton = document.createElement('button');
     removeButton.innerText = 'remove';
     removeButton.classList.add('btn', 'btn-outline-danger');
-    removeButton.onclick = function () {
+    removeButton.onclick = function removeBook() {
       myLibrary.splice(myLibrary.indexOf(book), 1);
       saveLocalAndRender();
     };
@@ -89,7 +90,7 @@ function addBookToLibrary() {
   const addPages = document.getElementById('new-pages').value;
   const addEditorial = document.getElementById('new-editorial').value;
   const radio = document.getElementById('read');
-  const addStatus = (radio.checked) ? true : false;
+  const addStatus = (radio.checked) ? true : false; //eslint-disable no-unneeded-ternary
   const newBook = new Book(addTitle, addAuthor, addPages, addEditorial, addStatus);
   myLibrary.push(newBook);
   cleanForm();
@@ -111,9 +112,9 @@ if (localStorage.getItem('myLib') === null) {
   myLibrary = JSON.parse(localStorage.getItem('myLib'));
 }
 
-const addButton  = document.getElementById('addBook');
-addButton.onclick = function () {
+const addButton = document.getElementById('addBook');
+addButton.onclick = function addingBook() {
   addBookToLibrary();
-}
+};
 
 render();
