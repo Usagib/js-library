@@ -8,7 +8,6 @@ function Book(title, author, numpages, editorial, readflag) {
   this.readflag = readflag;
 }
 
-// save to local storage and render lib
 function saveLocalAndRender() {
   localStorage.setItem('myLib', JSON.stringify(myLibrary));
   render(); // eslint-disable-line no-use-before-define
@@ -25,23 +24,18 @@ function render() {
     index += 1;
     tableRow.appendChild(indexCol);
 
-    // title
     const titleCol = tableRow.insertCell(1);
     titleCol.innerHTML = book.title;
 
-    // author
     const authorCol = tableRow.insertCell(2);
     authorCol.innerHTML = book.author;
 
-    // number of pages
     const pagesCol = tableRow.insertCell(3);
     pagesCol.innerHTML = book.numpages;
 
-    // editorial
     const editorCol = tableRow.insertCell(4);
     editorCol.innerHTML = book.editorial;
 
-    // status tbn
     const readCol = tableRow.insertCell(5);
     const readButton = document.createElement('button');
 
@@ -63,7 +57,6 @@ function render() {
       saveLocalAndRender();
     };
 
-    // remove tbn
     const removeCol = tableRow.insertCell(6);
     const removeButton = document.createElement('button');
     removeButton.innerText = 'remove';
@@ -76,7 +69,6 @@ function render() {
   });
 }
 
-// clean form
 function cleanForm() {
   document.getElementById('new-title').value = '';
   document.getElementById('new-author').value = '';
@@ -97,14 +89,12 @@ function addBookToLibrary() {
   saveLocalAndRender();
 }
 
-// populateBooks
 function populateBooks() {
   myLibrary.push(new Book('book01', 'author01', 11, 'editorial01', true));
   myLibrary.push(new Book('book02', 'author02', 22, 'editorial02', false));
   myLibrary.push(new Book('book03', 'author03', 33, 'editorial03', true));
 }
 
-// store lib in localstorage
 if (localStorage.getItem('myLib') === null) {
   populateBooks();
   localStorage.setItem('myLib', JSON.stringify(myLibrary));
