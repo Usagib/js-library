@@ -8,11 +8,26 @@ function Book(title, author, numpages, editorial, readflag) {
   this.readflag = readflag;
 }
 
+// save to local storage and render lib
+function saveLocalAndRender() {
+  localStorage.setItem('myLib', JSON.stringify(myLibrary));
+  render();
+}
+
 function render() {
   const table = document.getElementById('lib-table');
   table.innerHTML = '';
   let index = 1;
   myLibrary.forEach((book) => {
+    function readBtnAction() {
+      readButton.innerText = (book.readflag) ? 'Read' : 'Reading';
+      if (book.readflag) {
+        readButton.setAttribute('class', 'btn btn-outline-success');
+      } else {
+        readButton.setAttribute('class', 'btn btn-outline-info');
+      }
+    }
+
     const tableRow = table.insertRow();
     const indexCol = document.createElement('th');
     indexCol.innerHTML = index;
@@ -41,15 +56,6 @@ function render() {
     readBtnAction();
     readCol.appendChild(readButton);
 
-    function readBtnAction() {
-      readButton.innerText = (book.readflag) ? 'Read' : 'Reading';
-      if (book.readflag) {
-        readButton.setAttribute('class', 'btn btn-outline-success');
-      } else {
-        readButton.setAttribute('class', 'btn btn-outline-info');
-      }
-    }
-
     readButton.onclick = function () {
       book.readflag = !book.readflag;
       readBtnAction();
@@ -66,7 +72,6 @@ function render() {
       saveLocalAndRender();
     };
     removeCol.appendChild(removeButton);
-
   });
 }
 
@@ -85,17 +90,10 @@ function addBookToLibrary() {
   const addEditorial = document.getElementById('new-editorial').value;
   const radio = document.getElementById('read');
   const addStatus = (radio.checked) ? true : false;
-  console.log(addStatus);
   const newBook = new Book(addTitle, addAuthor, addPages, addEditorial, addStatus);
   myLibrary.push(newBook);
   cleanForm();
   saveLocalAndRender();
-}
-
-// save to local storage and render lib
-function saveLocalAndRender() {
-  localStorage.setItem('myLib', JSON.stringify(myLibrary));
-  render();
 }
 
 // populateBooks
@@ -112,4 +110,10 @@ if (localStorage.getItem('myLib') === null) {
 } else {
   myLibrary = JSON.parse(localStorage.getItem('myLib'));
 }
+
+const addButton  = document.getElementById('addBook');
+addButton.onclick = function () {
+  addBookToLibrary();
+}
+
 render();
